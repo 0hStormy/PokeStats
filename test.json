@@ -1,0 +1,10 @@
+{
+    "Name": "Pikachu",
+    "HP": 35,
+    "Attack": 55,
+    "Defense": 30,
+    "SpAtk": 50,
+    "SpDef": 40,
+    "Speed": 90,
+    "Total": 300
+}
