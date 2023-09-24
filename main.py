@@ -4,17 +4,18 @@
 import json
 import os
 import time
+from Termicolor import Color
 
 # Stat Printer
 def read_stats():
     print("Name: " + PokemonName + "\n")
-    print("HP: ", PokemonHP)
-    print("Attack: ", PokemonAttack)
-    print("Defense: ", PokemonDefense)
-    print("Special Attack: ", PokemonSpAtk)
-    print("Special Defense: ", PokemonSpDef)
-    print("Speed: ", PokemonSpeed)
-    print("Total: ", StatTotal)
+    print(Color("1. HP: ", PokemonHP).red)
+    print(Color("2. Attack: ", PokemonAttack).yellow)
+    print(Color("3. Defense: ", PokemonDefense).green)
+    print(Color("4. Special Attack: ", PokemonSpAtk).cyan)
+    print(Color("5. Special Defense: ", PokemonSpDef).blue)
+    print(Color("6. Speed: ", PokemonSpeed).magenta)
+    print("7. Total: ", StatTotal)
 
 # Clears Screen
 os.system("clear")
