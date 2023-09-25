@@ -8,14 +8,53 @@ from Termicolor import Color
 
 # Stat Printer
 def read_stats():
+    # Open and read file
+    with open(fileloc) as f:
+        tempjson = f.read()
+        jsoninfo = json.loads(tempjson)
+    
+    # Declare Variables
+    PokemonName = (jsoninfo["name"])
+    PokemonHP = (jsoninfo["hp"])
+    PokemonAttack = (jsoninfo["attack"])
+    PokemonDefense = (jsoninfo["defense"])
+    PokemonSpAtk = (jsoninfo["spatk"])
+    PokemonSpDef = (jsoninfo["spdef"])
+    PokemonSpeed = (jsoninfo["speed"])
+    StatTotal = (jsoninfo["total"])
+    
+    # Clears Screen
+    os.system("clear")
+
+    # Prints stats
     print("Name: " + PokemonName + "\n")
-    print(Color("1. HP: ", PokemonHP).red)
-    print(Color("2. Attack: ", PokemonAttack).yellow)
-    print(Color("3. Defense: ", PokemonDefense).green)
-    print(Color("4. Special Attack: ", PokemonSpAtk).cyan)
-    print(Color("5. Special Defense: ", PokemonSpDef).blue)
-    print(Color("6. Speed: ", PokemonSpeed).magenta)
-    print("7. Total: ", StatTotal)
+    print(Color("HP: ", PokemonHP).red)
+    print(Color("Attack: ", PokemonAttack).yellow)
+    print(Color("Defense: ", PokemonDefense).green)
+    print(Color("Secial Attack: ", PokemonSpAtk).cyan)
+    print(Color("Special Defense: ", PokemonSpDef).blue)
+    print(Color("Speed: ", PokemonSpeed).magenta)
+    print("Total: ", StatTotal)
+    print()
+    return
+
+# Change Stats
+def modify_stats():
+    statChange = input("Enter new stats: ")
+    with open(fileloc) as f:
+        jsonStat = json.load(f)
+        jsonStat[statInput] = statChange
+    
+    # Create a temporary file containing the updated JSON data
+    tempFile = "temp_{}.json".format(os.getpid())
+    with open(tempFile, 'w') as tf:
+        json.dump(jsonStat, tf, indent=4)
+    
+    # Rename the temporary file over the original file
+    os.replace(tempFile, fileloc)
+    
+    read_stats()
+    return
 
 # Clears Screen
 os.system("clear")
@@ -31,21 +70,15 @@ if os.path.isfile(fileloc) == True:
         tempjson = f.read()
         jsoninfo = json.loads(tempjson)
 
-        # Declare Variables
-        PokemonName = (jsoninfo["Name"])
-        PokemonHP = (jsoninfo["HP"])
-        PokemonAttack = (jsoninfo["Attack"])
-        PokemonDefense = (jsoninfo["Defense"])
-        PokemonSpAtk = (jsoninfo["SpAtk"])
-        PokemonSpDef = (jsoninfo["SpDef"])
-        PokemonSpeed = (jsoninfo["Speed"])
-        StatTotal = (jsoninfo["Total"])
-        
-        # Clears Screen
-        os.system("clear")
-
         # Reads Stats
         read_stats()
+        
+        working = True
+        
+        while working == True:
+            statInput = input("Stat Name (lowercase only): ")
+            modify_stats()
+            
 
 # If file does not exist
 else:
