@@ -24,7 +24,7 @@ def read_stats():
     StatTotal = (jsoninfo["total"])
     
     # Clears Screen
-    os.system("clear")
+    os.system("cls")
 
     # Prints stats
     print("Name: " + PokemonName + "\n")
@@ -46,18 +46,15 @@ def modify_stats():
         jsonStat[statInput] = statChange
     
     # Create a temporary file containing the updated JSON data
-    tempFile = "temp_{}.json".format(os.getpid())
+    tempFile = fileloc.format(os.getpid())
     with open(tempFile, 'w') as tf:
         json.dump(jsonStat, tf, indent=4)
-    
-    # Rename the temporary file over the original file
-    os.replace(tempFile, fileloc)
     
     read_stats()
     return
 
 # Clears Screen
-os.system("clear")
+os.system("cls")
 
 # Get and read JSON file
 fileloc = input("Where is the json file? ")
